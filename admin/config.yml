@@ -1,0 +1,77 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "galleri"
+    label: "🖼 Galleri"
+    folder: "_galleri"
+    create: true
+    delete: true
+    slug: "maleri-{{nummer}}"
+    summary: "Nr. {{nummer}} – {{tittel}}"
+    sortable_fields: ["nummer"]
+    fields:
+      - { label: "Bildenummer", name: "nummer", widget: "number", hint: "Brukes til sortering i galleriet" }
+      - { label: "Tittel", name: "tittel", widget: "string", hint: "F.eks. Sprekk i jorda" }
+      - { label: "Teknikk", name: "teknikk", widget: "string", hint: "F.eks. Akryl på lerret" }
+      - { label: "År", name: "aar", widget: "string", hint: "F.eks. 2025" }
+      - { label: "Bilde", name: "bilde", widget: "image", required: false, hint: "Last opp bilde av maleriet" }
+      - { label: "Tilgjengelig for salg", name: "tilSalgs", widget: "boolean", default: true }
+      - { label: "Solgt", name: "solgt", widget: "boolean", default: false }
+
+  - name: "innstillinger"
+    label: "⚙️ Innstillinger"
+    files:
+
+      - label: "🏠 Forside"
+        name: "forside"
+        file: "_data/forside.json"
+        fields:
+          - { label: "Forsidebilde", name: "forsideBilde", widget: "image", hint: "Bildet som vises i høyre side av toppen" }
+          - { label: "Øyenbryn-tekst (liten tekst over tittel)", name: "eyebrow", widget: "string", default: "Originale malerier · Norge" }
+          - { label: "Tittel linje 1", name: "tittelLinje1", widget: "string", default: "Kunst" }
+          - { label: "Tittel linje 2 (kursiv)", name: "tittelLinje2", widget: "string", default: "skapt med" }
+          - { label: "Tittel linje 3", name: "tittelLinje3", widget: "string", default: "sjel" }
+          - { label: "Ingress / undertekst", name: "ingress", widget: "text", default: "Malerier i krysningspunktet mellom det abstrakte og det virkelige. Hvert verk er unikt – malt med lidenskap og tilgjengelig for deg som vil eie et originalt kunstverk." }
+
+      - label: "🎨 Galleri-seksjon"
+        name: "galleriSeksjon"
+        file: "_data/galleri.json"
+        fields:
+          - { label: "Intro-tekst over galleriet", name: "intro", widget: "text", default: "Et utvalg originale malerier – alle unike og tilgjengelige for salg. Er du interessert i et av bildene? Ta kontakt, så finner vi en pris begge er fornøyde med. Maleriene leveres med håndlagde, spesialtilpassede rammer etter ditt ønske." }
+
+      - label: "👤 Om kunstneren"
+        name: "omKunstner"
+        file: "_data/om.json"
+        fields:
+          - { label: "Kunstnerbilde", name: "kunstnerBilde", widget: "image", hint: "Portrettbilde av kunstneren" }
+          - { label: "Navn", name: "navn", widget: "string", default: "Totto" }
+          - { label: "Sitat", name: "sitat", widget: "string", default: "Jeg maler i krysningspunktet mellom det abstrakte og det virkelige." }
+          - label: "Avsnitt"
+            name: "avsnitt"
+            widget: "list"
+            summary: "{{fields.tekst}}"
+            field: { label: "Tekst", name: "tekst", widget: "text" }
+
+      - label: "📬 Kontakt-seksjon"
+        name: "kontakt"
+        file: "_data/kontakt.json"
+        fields:
+          - { label: "Tittel linje 1", name: "tittelLinje1", widget: "string", default: "Interessert i" }
+          - { label: "Tittel linje 2", name: "tittelLinje2", widget: "string", default: "et maleri?" }
+          - { label: "Intro-tekst", name: "intro", widget: "text", default: "Alle bildene er til salgs. Ta kontakt, så finner vi en pris begge er fornøyde med. Maleriene leveres med håndlagde, spesialtilpassede rammer etter ditt ønske." }
+          - { label: "Instagram-brukernavn", name: "instagram", widget: "string", default: "artby_totto" }
+          - { label: "Leveringsinformasjon", name: "levering", widget: "string", default: "Hele Norge · Frakt ordnes" }
+          - { label: "Ramme-informasjon", name: "rammer", widget: "string", default: "Håndlagde, spesialtilpassede rammer etter kjøpers ønske" }
+          - { label: "Formspree-URL", name: "formspreeUrl", widget: "string", default: "https://formspree.io/f/xykbrden" }
+
+      - label: "🔻 Bunntekst"
+        name: "footer"
+        file: "_data/footer.json"
+        fields:
+          - { label: "Copyright-tekst", name: "copyright", widget: "string", default: "© 2025 Art By Totto" }
+          - { label: "Nettside-URL", name: "nettside", widget: "string", default: "tottoart.no" }

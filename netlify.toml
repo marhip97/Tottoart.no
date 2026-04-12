@@ -1,0 +1,13 @@
+[build]
+  command = "node scripts/generer-galleri.js"
+  publish = "."
+
+[[headers]]
+  for = "/_data/*"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/_galleri/*"
+  [headers.values]
+    Cache-Control = "no-cache"
