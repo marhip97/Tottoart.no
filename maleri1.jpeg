@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art By Totto – tottoart.no</title>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1714; --warm: #f5f0e8; --accent: #8b4a2b;
+    --accent-light: #c47a5a; --muted: #7a746c;
+    --border: rgba(26,23,20,0.12); --gold: #b8966a;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Raleway', sans-serif; background: var(--warm); color: var(--ink); font-weight: 300; letter-spacing: 0.02em; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; background: rgba(245,240,232,0.92); backdrop-filter: blur(8px); border-bottom: 0.5px solid var(--border); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 5rem; }
+  .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 6rem 4rem 6rem 6rem; }
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; animation: fadeUp 0.8s ease both; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 6vw, 6rem); font-weight: 300; line-height: 1.05; margin-bottom: 2rem; color: var(--ink); animation: fadeUp 0.8s 0.15s ease both; }
+  .hero-title em { font-style: italic; color: var(--accent-light); }
+  .hero-sub { font-size: 0.85rem; line-height: 1.9; color: var(--muted); max-width: 36ch; margin-bottom: 3rem; animation: fadeUp 0.8s 0.3s ease both; }
+  .hero-btns { animation: fadeUp 0.8s 0.45s ease both; }
+  .btn-primary { display: inline-block; padding: 0.9rem 2.4rem; background: var(--accent); color: var(--warm); font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: background 0.25s; border: none; cursor: pointer; }
+  .btn-primary:hover { background: var(--accent-light); }
+  .btn-outline { display: inline-block; padding: 0.9rem 2.4rem; background: transparent; color: var(--accent); font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--accent); transition: all 0.25s; cursor: pointer; margin-left: 1rem; }
+  .btn-outline:hover { background: var(--accent); color: var(--warm); }
+  .hero-image { position: relative; overflow: hidden; }
+  .hero-image-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, var(--warm) 0%, transparent 25%); }
+  section { padding: 7rem 6rem; }
+  .section-label { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.5rem; }
+  .divider { width: 3rem; height: 1px; background: var(--gold); margin: 2rem 0; }
+  #galleri { background: #f0ebe0; }
+  .gallery-intro { max-width: 55ch; color: var(--muted); font-size: 0.9rem; line-height: 1.9; margin-bottom: 4rem; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .gallery-item { position: relative; overflow: hidden; cursor: pointer; background: #d4cfc5; }
+  .gallery-item::after { content: ''; display: block; padding-top: 120%; }
+  .gallery-item img, .gallery-placeholder { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .gallery-item:hover img, .gallery-item:hover .gallery-placeholder { transform: scale(1.04); }
+  .gallery-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #cdc7bc; color: var(--muted); }
+  .gallery-placeholder .p-icon { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: #a8a09a; margin-bottom: 0.5rem; }
+  .gallery-placeholder .p-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #a8a09a; }
+  .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.2rem 1.2rem; background: linear-gradient(transparent, rgba(26,23,20,0.7)); color: white; transform: translateY(100%); transition: transform 0.35s ease; }
+  .gallery-item:hover .gallery-caption { transform: translateY(0); }
+  .gallery-caption h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 0.2rem; }
+  .gallery-caption p { font-size: 0.7rem; letter-spacing: 0.1em; opacity: 0.8; }
+  #om { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; align-items: center; padding: 7rem 6rem; background: var(--warm); }
+  .about-image-wrap { position: relative; }
+  .about-image-wrap::before { content: ''; position: absolute; top: 1.5rem; left: 1.5rem; right: -1.5rem; bottom: -1.5rem; border: 1px solid var(--gold); z-index: 0; }
+  .about-img-placeholder { position: relative; z-index: 1; width: 100%; aspect-ratio: 3/4; background: #cdc7bc; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: #a8a09a; }
+  .about-img-placeholder span { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; }
+  .about-img-placeholder small { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .about-text p { font-size: 0.9rem; line-height: 2; color: var(--muted); margin-bottom: 1.2rem; }
+  .about-text .quote { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; font-style: italic; color: var(--accent-light); line-height: 1.5; margin: 2rem 0; padding-left: 1.5rem; border-left: 2px solid var(--gold); }
+  #kontakt { background: var(--ink); color: var(--warm); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; padding: 7rem 6rem; }
+  #kontakt .section-label { color: var(--gold); }
+  #kontakt .section-title { color: var(--warm); }
+  #kontakt .divider { background: var(--gold); }
+  .contact-text p { font-size: 0.88rem; line-height: 2; color: rgba(245,240,232,0.6); margin-bottom: 1.5rem; }
+  .contact-info-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+  .contact-info-item .ci-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); min-width: 6rem; padding-top: 0.15rem; }
+  .contact-info-item .ci-value { font-size: 0.88rem; color: rgba(245,240,232,0.85); line-height: 1.6; }
+  .contact-info-item .ci-value a { color: rgba(245,240,232,0.85); text-decoration: none; border-bottom: 0.5px solid rgba(184,150,106,0.5); transition: color 0.2s; }
+  .contact-info-item .ci-value a:hover { color: var(--gold); }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+  .form-group input, .form-group select, .form-group textarea { background: rgba(245,240,232,0.06); border: 0.5px solid rgba(184,150,106,0.3); color: var(--warm); padding: 0.8rem 1rem; font-family: 'Raleway', sans-serif; font-size: 0.85rem; font-weight: 300; letter-spacing: 0.03em; outline: none; transition: border-color 0.2s; resize: vertical; }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(245,240,232,0.3); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select option { background: #2a2520; }
+  .btn-submit { padding: 1rem 2.4rem; background: var(--gold); color: var(--ink); font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer; align-self: flex-start; transition: background 0.25s; }
+  .btn-submit:hover { background: var(--accent-light); color: white; }
+  .instagram-strip { background: #f0ebe0; padding: 4rem 6rem; text-align: center; }
+  .instagram-strip p { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+  .instagram-strip a { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--accent); text-decoration: none; transition: color 0.2s; }
+  .instagram-strip a:hover { color: var(--accent-light); }
+  footer { background: var(--ink); color: rgba(245,240,232,0.4); padding: 2rem 6rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; letter-spacing: 0.1em; }
+  footer a { color: rgba(245,240,232,0.4); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; } .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-text { padding: 7rem 2rem 3rem; } .hero-image { height: 60vw; }
+    section { padding: 5rem 2rem; } .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    #om { grid-template-columns: 1fr; padding: 5rem 2rem; gap: 3rem; }
+    .about-image-wrap { max-width: 340px; }
+    #kontakt { grid-template-columns: 1fr; padding: 5rem 2rem; gap: 3rem; }
+    .instagram-strip { padding: 3rem 2rem; }
+    footer { padding: 1.5rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+  @media (max-width: 600px) { .gallery-grid { grid-template-columns: 1fr; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* INTERESSE-KNAPP PÅ HOVER */
+  .gallery-interest {
+    position: absolute;
+    bottom: 4.5rem; left: 1.2rem; right: 1.2rem;
+    display: flex;
+    justify-content: center;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+  }
+  .gallery-item:hover .gallery-interest { opacity: 1; transform: translateY(0); }
+  .btn-interest {
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .btn-interest:hover { background: var(--accent-light); color: white; }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(26,23,20,0.95);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2rem;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox-img {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+    box-shadow: 0 8px 60px rgba(0,0,0,0.5);
+  }
+  .lightbox-info {
+    margin-top: 1.2rem;
+    text-align: center;
+    color: rgba(245,240,232,0.8);
+  }
+  .lightbox-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    margin-bottom: 0.3rem;
+  }
+  .lightbox-info p { font-size: 0.72rem; letter-spacing: 0.15em; opacity: 0.6; }
+  .lightbox-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.2rem;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    background: none;
+    border: none;
+    color: rgba(245,240,232,0.6);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .lightbox-close:hover { color: white; }
+  .lightbox-placeholder {
+    max-width: 50vw;
+    max-height: 70vh;
+    aspect-ratio: 3/4;
+    background: #2a2520;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: #7a746c;
+  }
+  .lightbox-placeholder span { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; }
+  .lightbox-placeholder small { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#topp" class="nav-logo">Art <span>By</span> Totto</a>
+  <ul class="nav-links">
+    <li><a href="#galleri">Galleri</a></li>
+    <li><a href="#om">Om kunstneren</a></li>
+    <li><a href="#kontakt">Bestilling</a></li>
+  </ul>
+</nav>
+
+<section id="topp" class="hero" style="padding:0;">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Originale malerier · Norge</p>
+    <h1 class="hero-title">Kunst<br><em>skapt med</em><br>sjel</h1>
+    <p class="hero-sub">Malerier i krysningspunktet mellom det abstrakte og det virkelige. Hvert verk er unikt – malt med lidenskap og tilgjengelig for deg som vil eie et originalt kunstverk.</p>
+    <div class="hero-btns">
+      <a href="#galleri" class="btn-primary">Se galleriet</a>
+      <a href="#kontakt" class="btn-outline">Bestill</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="maleri2.jpeg" alt="Maleri av Totto" style="width:100%;height:100%;object-fit:cover;filter:sepia(5%) contrast(1.05);">
+    <div class="hero-image-overlay"></div>
+  </div>
+</section>
+
+<section id="galleri">
+  <p class="section-label">Arbeider</p>
+  <h2 class="section-title">Galleri</h2>
+  <div class="divider"></div>
+  <p class="gallery-intro">Et utvalg originale malerier – alle unike og tilgjengelige for salg. Er du interessert i et av bildene? Ta kontakt, så finner vi en pris begge er fornøyde med. Maleriene leveres med håndlagde, spesialtilpassede rammer etter ditt ønske.</p>
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox('maleri2.jpeg', 'Nr. 1 – Sprekk i jorda', 'Blandet teknikk · 2025')">
+      <img src="maleri2.jpeg" alt="Maleri av Totto">
+      <div class="gallery-caption"><h3>Nr. 1 – Sprekk i jorda</h3><p>Blandet teknikk · 2025</p></div>
+      <div class="gallery-interest"><button class="btn-interest" onclick="meldInteresse(event, 'Nr. 1 – Sprekk i jorda')">Meld interesse</button></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('maleri1.jpeg', 'Nr. 2 – Støy og stillhet', 'Akryl på lerret · 2025')">
+      <img src="maleri1.jpeg" alt="Maleri av Totto">
+      <div class="gallery-caption"><h3>Nr. 2 – Støy og stillhet</h3><p>Akryl på lerret · 2025</p></div>
+      <div class="gallery-interest"><button class="btn-interest" onclick="meldInteresse(event, 'Nr. 2 – Støy og stillhet')">Meld interesse</button></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(null, 'Nr. 3 – Verk uten tittel', 'Blandet teknikk · 2024')">
+      <div class="gallery-placeholder"><span class="p-icon">✦</span><span class="p-label">Maleri 3</span></div>
+      <div class="gallery-caption"><h3>Nr. 3 – Verk uten tittel</h3><p>Blandet teknikk · 2024</p></div>
+      <div class="gallery-interest"><button class="btn-interest" onclick="meldInteresse(event, 'Nr. 3 – Verk uten tittel')">Meld interesse</button></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(null, 'Nr. 4 – Verk uten tittel', 'Akryl på lerret · 2024')">
+      <div class="gallery-placeholder"><span class="p-icon">✦</span><span class="p-label">Maleri 4</span></div>
+      <div class="gallery-caption"><h3>Nr. 4 – Verk uten tittel</h3><p>Akryl på lerret · 2024</p></div>
+      <div class="gallery-interest"><button class="btn-interest" onclick="meldInteresse(event, 'Nr. 4 – Verk uten tittel')">Meld interesse</button></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(null, 'Nr. 5 – Verk uten tittel', 'Olje på lerret · 2024')">
+      <div class="gallery-placeholder"><span class="p-icon">✦</span><span class="p-label">Maleri 5</span></div>
+      <div class="gallery-caption"><h3>Nr. 5 – Verk uten tittel</h3><p>Olje på lerret · 2024</p></div>
+      <div class="gallery-interest"><button class="btn-interest" onclick="meldInteresse(event, 'Nr. 5 – Verk uten tittel')">Meld interesse</button></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(null, 'Nr. 6 – Verk uten tittel', 'Akryl på lerret · 2024')">
+      <div class="gallery-placeholder"><span class="p-icon">✦</span><span class="p-label">Maleri 6</span></div>
+      <div class="gallery-caption"><h3>Nr. 6 – Verk uten tittel</h3><p>Akryl på lerret · 2024</p></div>
+      <div class="gallery-interest"><button class="btn-interest" onclick="meldInteresse(event, 'Nr. 6 – Verk uten tittel')">Meld interesse</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="om" style="padding-top:7rem;padding-bottom:7rem;">
+  <div class="about-image-wrap">
+    <img src="totto-portrett.jpeg" alt="Totto – kunstner" style="position:relative;z-index:1;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;">
+  </div>
+  <div class="about-text">
+    <p class="section-label">Kunstneren</p>
+    <h2 class="section-title">Totto</h2>
+    <div class="divider"></div>
+    <blockquote class="quote">«Jeg maler i krysningspunktet mellom det abstrakte og det virkelige.»</blockquote>
+    <p>Totto begynte å male for ett år siden, og har siden da kastet seg inn i kunsten med full lidenskap. Hans verk befinner seg i et fascinerende krysningspunkt mellom det abstrakte og det virkelige – der form og følelse møtes på lerretet.</p>
+    <p>Med nettsiden ønsker Totto å dele og vise frem bildene sine til alle som er nysgjerrige på kunsten hans. Alle maleriene er originale og tilgjengelige for salg.</p>
+    <p>Er du interessert i et av bildene? Ta gjerne kontakt – så finner vi en pris begge er fornøyde med. Hvert maleri leveres med en håndlaget, spesialtilpasset ramme etter kjøpers eget ønske.</p>
+    <a href="#kontakt" class="btn-primary" style="margin-top:1rem;">Ta kontakt</a>
+  </div>
+</section>
+
+<section id="kontakt" style="padding-top:7rem;padding-bottom:7rem;">
+  <div class="contact-text">
+    <p class="section-label">Bestilling</p>
+    <h2 class="section-title">Interessert i<br>et maleri?</h2>
+    <div class="divider"></div>
+    <p>Alle bildene er til salgs. Ta kontakt, så finner vi en pris begge er fornøyde med. Maleriene leveres med håndlagde, spesialtilpassede rammer etter ditt ønske.</p>
+    <div class="contact-info-item">
+      <span class="ci-label">Instagram</span>
+      <span class="ci-value"><a href="https://www.instagram.com/artby_totto/" target="_blank">@artby_totto</a></span>
+    </div>
+    <div class="contact-info-item">
+      <span class="ci-label">Nettside</span>
+      <span class="ci-value"><a href="https://tottoart.no">tottoart.no</a></span>
+    </div>
+    <div class="contact-info-item">
+      <span class="ci-label">Levering</span>
+      <span class="ci-value">Hele Norge · Frakt ordnes</span>
+    </div>
+    <div class="contact-info-item">
+      <span class="ci-label">Rammer</span>
+      <span class="ci-value">Håndlagde, spesialtilpassede rammer etter kjøpers ønske</span>
+    </div>
+  </div>
+  <div>
+    <form class="contact-form" id="kontaktskjema" action="https://formspree.io/f/xykbrden" method="POST">
+      <div class="form-group">
+        <label for="navn">Ditt navn</label>
+        <input type="text" id="navn" name="navn" placeholder="Ola Nordmann" required>
+      </div>
+      <div class="form-group">
+        <label for="epost">E-post</label>
+        <input type="email" id="epost" name="epost" placeholder="ola@eksempel.no" required>
+      </div>
+      <div class="form-group">
+        <label for="type">Hvilket bilde er du interessert i?</label>
+        <select id="type" name="type">
+          <option value="">Velg bilde...</option>
+          <option>Nr. 1 – Sprekk i jorda</option>
+          <option>Nr. 2 – Støy og stillhet</option>
+          <option>Nr. 3 – Verk uten tittel</option>
+          <option>Nr. 4 – Verk uten tittel</option>
+          <option>Nr. 5 – Verk uten tittel</option>
+          <option>Nr. 6 – Verk uten tittel</option>
+          <option>Annet / generell henvendelse</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="melding">Melding</label>
+        <textarea id="melding" name="melding" rows="5" placeholder="Hvilket maleri er du interessert i? Har du ønsker til ramme, størrelse eller annet?"></textarea>
+      </div>
+      <input type="hidden" name="_replyto" value="tottoartby@gmail.com">
+      <input type="hidden" name="_subject" value="Ny henvendelse fra tottoart.no">
+      <button type="submit" class="btn-submit">Send henvendelse</button>
+      <p id="form-confirm" style="font-size:0.8rem;color:var(--gold);display:none;margin-top:0.5rem;letter-spacing:0.05em;">Takk! Totto kommer tilbake til deg snart.</p>
+    </form>
+  </div>
+</section>
+
+<div class="instagram-strip">
+  <p>Følg kunstneren på Instagram</p>
+  <a href="https://www.instagram.com/artby_totto/" target="_blank">@artby_totto</a>
+</div>
+
+<footer>
+  <span>© 2025 Art By Totto</span>
+  <span>tottoart.no</span>
+  <a href="https://www.instagram.com/artby_totto/" target="_blank">Instagram</a>
+</footer>
+
+<script>
+  // FORM SUBMIT
+  const form = document.getElementById('kontaktskjema');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('.btn-submit');
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+    btn.textContent = 'Sender...';
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      document.getElementById('form-confirm').style.display = 'block';
+      form.reset();
+    } else {
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.textContent = 'Send henvendelse';
+      alert('Noe gikk galt. Prøv igjen eller kontakt oss direkte på Instagram.');
+    }
+  });
+
+  // LIGHTBOX
+  let currentTitle = '';
+  function openLightbox(src, title, desc) {
+    currentTitle = title;
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const ph = document.getElementById('lightbox-placeholder');
+    document.getElementById('lightbox-title').textContent = title;
+    document.getElementById('lightbox-desc').textContent = desc;
+    if (src) {
+      img.src = src;
+      img.alt = title;
+      img.style.display = 'block';
+      ph.style.display = 'none';
+    } else {
+      img.style.display = 'none';
+      ph.style.display = 'flex';
+    }
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(e) {
+    if (e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lightbox-close') && e.target.tagName !== 'BUTTON') return;
+    if (e && e.target.classList.contains('btn-interest')) return;
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // MELD INTERESSE – fra galleriet
+  function meldInteresse(e, tittel) {
+    e.stopPropagation();
+    fyllInnInteresse(tittel);
+  }
+
+  // MELD INTERESSE – fra lightbox
+  function meldInteresseFromLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+    fyllInnInteresse(currentTitle);
+  }
+
+  function fyllInnInteresse(tittel) {
+    // Velg riktig bilde i rullgardinen
+    const typeSelect = document.getElementById('type');
+    for (let i = 0; i < typeSelect.options.length; i++) {
+      if (typeSelect.options[i].text === tittel) {
+        typeSelect.selectedIndex = i;
+        break;
+      }
+    }
+    // Skriv inn bildetittel i meldingsfeltet
+    const melding = document.getElementById('melding');
+    melding.value = 'Jeg er interessert i: ' + tittel;
+    // Scroll til kontaktskjema
+    document.getElementById('kontakt').scrollIntoView({ behavior: 'smooth' });
+    // Fokus på navn-feltet
+    setTimeout(() => document.getElementById('navn').focus(), 600);
+  }
+
+  // Lukk lightbox med Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="" style="display:none;">
+  <div class="lightbox-placeholder" id="lightbox-placeholder" style="display:none;">
+    <span>✦</span>
+    <small>Bilde kommer snart</small>
+  </div>
+  <div class="lightbox-info">
+    <h3 id="lightbox-title"></h3>
+    <p id="lightbox-desc"></p>
+  </div>
+  <div class="lightbox-actions">
+    <button class="btn-interest" onclick="meldInteresseFromLightbox()">Meld interesse</button>
+    <button class="btn-submit" style="background:transparent;color:rgba(245,240,232,0.5);border:0.5px solid rgba(245,240,232,0.2);" onclick="closeLightbox()">Lukk</button>
+  </div>
+</div>
+
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+</body>
+</html>
