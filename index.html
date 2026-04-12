@@ -280,7 +280,8 @@
       const avsnittDiv = document.getElementById('om-avsnitt');
       (om.avsnitt || []).forEach(a => {
         const p = document.createElement('p');
-        p.textContent = a.tekst;
+        // Støtter både streng og objekt med .tekst eller .avsnitt
+        p.textContent = typeof a === 'string' ? a : (a.tekst || a.avsnitt || '');
         avsnittDiv.appendChild(p);
       });
 
