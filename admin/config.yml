@@ -54,8 +54,7 @@ collections:
           - label: "Avsnitt"
             name: "avsnitt"
             widget: "list"
-            summary: "{{fields.tekst}}"
-            field: { label: "Tekst", name: "tekst", widget: "text" }
+            field: { label: "Avsnitt", name: "avsnitt", widget: "text" }
 
       - label: "📬 Kontakt-seksjon"
         name: "kontakt"
