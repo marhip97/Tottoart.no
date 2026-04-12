@@ -1,12 +1,33 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Art By Totto – Admin</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-</head>
-<body>
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-</body>
-</html>
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "malerier"
+    label: "Malerier"
+    folder: "_malerier"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Tittel", name: "tittel", widget: "string" }
+      - { label: "Nummer", name: "nummer", widget: "number" }
+      - { label: "Teknikk", name: "teknikk", widget: "string", hint: "F.eks. Akryl på lerret" }
+      - { label: "År", name: "aar", widget: "string" }
+      - { label: "Bilde", name: "bilde", widget: "image", required: false }
+      - { label: "Tilgjengelig for salg", name: "tilSalgs", widget: "boolean", default: true }
+
+  - name: "innstillinger"
+    label: "Innstillinger"
+    files:
+      - label: "Generelt"
+        name: "generelt"
+        file: "_data/generelt.yml"
+        fields:
+          - { label: "Kunstner navn", name: "navn", widget: "string" }
+          - { label: "Undertittel / tagline", name: "tagline", widget: "string" }
+          - { label: "Instagram-brukernavn", name: "instagram", widget: "string" }
+          - { label: "E-post", name: "epost", widget: "string" }
+          - { label: "Om kunstneren (tekst)", name: "omKunstner", widget: "text" }
